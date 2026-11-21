@@ -10,11 +10,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Build the exe
+      - name: Find the project folder
+        shell: pwsh
         run: |
-          npm install
+          $pkg = Get-ChildItem -Recurse -Filter package.json | Where-Object { $_.FullName -notmatch 'node_modules' } | Select-Object -First 1
+          "PROJECT_DIR=$($pkg.DirectoryName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Project folder: $($pkg.DirectoryName)"
+      - name: Build the exe
+        working-directory: ${{ env.PROJECT_DIR }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: |
+          npm install --no-audit --no-fund
           npm run dist
       - uses: actions/upload-artifact@v4
         with:
           name: MDFS-exe
-          path: dist/MDFS.exe
+          path: ${{ env.PROJECT_DIR }}/dist/*.exe
