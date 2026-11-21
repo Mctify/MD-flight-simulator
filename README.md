@@ -1,6 +1,6 @@
 # MDFS for Windows (PC only)
 
-A single portable `MDFS.exe` (Electron). Mobile players use the version hosted in Claude, so there is no Android build any more.
+A single portable `MDFS.exe` (Electron)
 
 I could not compile this where I made it (no Electron and no internet there), so build it with one of these. Nothing here has been run yet, so expect to fix a small thing if a step complains.
 
