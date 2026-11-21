@@ -1,0 +1,32 @@
+{
+  "name": "mdfs",
+  "version": "2.0.0",
+  "description": "MDFS MD-11 flight simulator (Windows)",
+  "author": "MDFS",
+  "main": "main.js",
+  "scripts": {
+    "prepare-web": "node scripts/prepare-web.js",
+    "start": "npm run prepare-web && electron .",
+    "dist": "npm run prepare-web && electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "three": "0.128.0"
+  },
+  "build": {
+    "appId": "com.mdfs.desktop",
+    "productName": "MDFS",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "www/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "artifactName": "MDFS.exe"
+    }
+  }
+}
